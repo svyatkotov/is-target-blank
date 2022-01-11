@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+    "name": "Is Target Blank",
+    "description": "Simple extension that shows whether the link will open in a new tab or not.",
+    "icons": {
+        "16": "images/logo/16.png",
+        "48": "images/logo/48.png",
+        "128": "images/logo/128.png"
+      },
+    "version": "1.0",
+    "content_scripts": [
+        {
+          "matches": ["*://*/*"],
+          "js": [ "js/isTargetBlank.js" ]
+        }
+    ]
+}
