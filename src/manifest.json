@@ -8,6 +8,12 @@
         "128": "images/logo/128.png"
       },
     "version": "1.0",
+    "permissions": [
+      "webNavigation"
+    ],
+    "background": {
+      "service_worker": "sw.js"
+    },
     "content_scripts": [
         {
           "matches": ["*://*/*"],
