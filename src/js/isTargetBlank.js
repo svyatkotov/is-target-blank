@@ -1,20 +1,19 @@
-window.onload = () => {
-    processLinks();
+window.addEventListener('mousemove', ({ target }) => handleMouseMove(target));
+
+function handleMouseMove(elem) {
+    if (elem === null) {
+        return;
+    } else if (elem.tagName === 'A') {
+        addTitle(elem);
+    } else {
+        handleMouseMove(elem.parentNode);
+    }
 }
 
-chrome.runtime.onMessage.addListener(msg => {
-    if (msg.type === 'nav') {
-        processLinks();
+function addTitle(linkElem) {
+    if (linkElem.getAttribute('data-processed-by-is-target-blank') !== 'true') {
+        const prevTitle = linkElem.title;
+        linkElem.title = `${linkElem.target === '_blank' ? 'Blank': 'Not blank'}${prevTitle ? `. ${prevTitle}` : ''}`;
+        linkElem.setAttribute('data-processed-by-is-target-blank', 'true');
     }
-});
-
-function processLinks() {
-    const links = document.querySelectorAll('a');
-    
-    links.forEach(link => {
-        if (link.getAttribute('data-processed') !== 'true') {
-            link.title = `${link.target === '_blank' ? 'Blank': 'Not blank'}${link.title ? `. ${link.title}` : ''}`;
-            link.setAttribute('data-processed', 'true');
-        }
-    });
 }
